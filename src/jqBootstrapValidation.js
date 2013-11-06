@@ -81,14 +81,12 @@
                             e.preventDefault();
                             e.stopImmediatePropagation();
                         }
-                        $form.addClass(errorClassName());
                         if ($.isFunction(settings.options.submitError)) {
                             settings.options.submitError($form, e, $inputsWithValidators.jqBootstrapValidation("collectErrors", true));
                         }
                     } else {
                         // Woo! No errors! We can pass the submit event to submitSuccess
                         // (if it has been set up)
-                        $form.removeClass(errorClassName());
                         if ($.isFunction(settings.options.submitSuccess)) {
                             settings.options.submitSuccess($form, e);
                         }
