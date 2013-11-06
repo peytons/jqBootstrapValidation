@@ -840,7 +840,7 @@
             required: {
                 name: "required",
                 init: function ($this, name) {
-                    var message = "This is required";
+                    var message = "This field is required";
                     if ($this.data("validation" + name + "Message")) {
                         message = $this.data("validation" + name + "Message");
                     }
@@ -1117,7 +1117,7 @@
             required: {
                 name: "Required",
                 type: "required",
-                message: "This is required<!-- data-validator-required-message to override -->"
+                message: "This field is required<!-- data-validator-required-message to override -->"
             },
             checkone: {
                 name: "Checkone",

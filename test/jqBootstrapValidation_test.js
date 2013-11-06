@@ -394,7 +394,7 @@
         }
     });
     test('is required', 1 * numInJQBVTest, function() {
-        runJQBVTest("", [], ["error"], [], ["This is required"]);
+        runJQBVTest("", [], ["error"], [], ["This field is required"]);
     });
     test("accepts anything", 3 * numInJQBVTest, function() {
         runJQBVTest(" ", ["success"], [], [], []);
@@ -430,7 +430,7 @@
         }
     });
     test('is required', 1 * numInJQBVTest, function() {
-        runJQBVTest("", [], ["error"], [], ["This is required"]);
+        runJQBVTest("", [], ["error"], [], ["This field is required"]);
     });
     test("accepts anything", 3 * numInJQBVTest, function() {
         runJQBVTest(" ", ["success"], [], [], []);

@@ -82,7 +82,7 @@
         }
     });
     test('is required', 1 * numInJQBVTest, function() {
-        runJQBVTest("", [], ["error"], [], ["This is required"]);
+        runJQBVTest("", [], ["error"], [], ["This field is required"]);
     });
 
 }(jQuery));
