@@ -4,6 +4,7 @@
 (function ($) {
 
     var createdElements = [];
+    var settings = {};
 
     var defaults = {
         options: {
@@ -28,9 +29,20 @@
             init: function (options) {
 
                 // Get a clean copy of the defaults for extending
-                var settings = $.extend(true, {}, defaults);
+                settings = $.extend(true, {}, defaults);
                 // Set up the options based on the input
                 settings.options = $.extend(true, settings.options, options);
+
+                var successClassName = function() {
+                      return settings.options.bootstrap3 ? "has-success" : "success";
+                };
+                var errorClassName = function() {
+                      return settings.options.bootstrap3 ? "has-error" : "error";
+                };
+                var warningClassName = function() {
+                      return settings.options.bootstrap3 ? "has-warning" : "warning";
+                };
+                settings.options.controlGroupClassName = settings.options.bootstrap3 ? ".form-group" : ".control-group";
 
                 var $siblingElements = this;
 
@@ -45,7 +57,7 @@
                     var warningsFound = 0;
                     // Get all inputs
                     var $allInputs = $form.find("input,textarea,select").not("[type=submit],[type=image]").filter(settings.options.filter);
-                    var $allControlGroups = $form.find(".control-group");
+                    var $allControlGroups = $form.find(settings.options.controlGroupClassName);
 
                     // Only trigger validation on the ones that actually _have_ validation
                     var $inputsWithValidators = $allInputs.filter(function () {
@@ -86,21 +98,11 @@
                     }
                 });
 
-                var successClassName = function() {
-                      return settings.options.bootstrap3 ? "has-success" : "success";
-                };
-                var errorClassName = function() {
-                      return settings.options.bootstrap3 ? "has-error" : "error";
-                };
-                var warningClassName = function() {
-                      return settings.options.bootstrap3 ? "has-warning" : "warning";
-                };
-
                 return this.each(function () {
 
                     // Get references to everything we're interested in
                     var $this = $(this),
-                        $controlGroup = $this.parents(".control-group").first(),
+                        $controlGroup = $this.parents(settings.options.controlGroupClassName).first(),
                         $helpBlock = $controlGroup.find(".help-block").first(),
                         $form = $this.parents("form").first(),
                         validatorNames = [];
@@ -611,7 +613,7 @@
 
                         var
                             $this = $(this),
-                            $controlGroup = $this.parents(".control-group").first(),
+                            $controlGroup = $this.parents(settings.options.controlGroupClassName).first(),
                             $helpBlock = $controlGroup.find(".help-block").first(),
                             $form = $this.parents("form").first();
 
@@ -875,7 +877,7 @@
                     var $label = null;
                     if (($label = $form.find("label[for=\"" + elementName + "\"]")).length) {
                         message += " '" + $label.text() + "'";
-                    } else if (($label = $element.parents(".control-group").first().find("label")).length) {
+                    } else if (($label = $element.parents(settings.options.controlGroupClassName).first().find("label")).length) {
                         message += " '" + $label.first().text() + "'";
                     }
 
@@ -1157,7 +1159,7 @@
         var type = $this.attr("type");
         if (type === "checkbox") {
             value = ($this.is(":checked") ? value : "");
-            var checkboxParent = $this.parents("form").first() || $this.parents(".control-group").first();
+            var checkboxParent = $this.parents("form").first() || $this.parents(settings.options.controlGroupClassName).first();
             if (checkboxParent) {
                 value = checkboxParent.find("input[name='" + $this.attr("name") + "']:checked").map(function (i, el) {
                     return $(el).val();
@@ -1166,7 +1168,7 @@
         }
         else if (type === "radio") {
             value = ($('input[name="' + $this.attr("name") + '"]:checked').length > 0 ? $this.val() : "");
-            var radioParent = $this.parents("form").first() || $this.parents(".control-group").first();
+            var radioParent = $this.parents("form").first() || $this.parents(settings.options.controlGroupClassName).first();
             if (radioParent) {
                 value = radioParent.find("input[name='" + $this.attr("name") + "']:checked").map(function (i, el) {
                     return $(el).val();
