@@ -12,6 +12,7 @@
             semanticallyStrict: false, // set to true to tidy up generated HTML output
             removeSuccess : true,
             bindEvents: [],
+            bootstrap3: false,
             autoAdd: {
                 helpBlocks: true
             },
@@ -55,8 +56,8 @@
                     // Okay, now check each controlgroup for errors (or warnings)
                     $allControlGroups.each(function (i, el) {
                         var $controlGroup = $(el);
-                        if ($controlGroup.hasClass("warning") || $controlGroup.hasClass("error")) {
-                            $controlGroup.removeClass("warning").addClass("error");
+                        if ($controlGroup.hasClass(warningClassName()) || $controlGroup.hasClass(errorClassName())) {
+                            $controlGroup.removeClass(warningClassName()).addClass(errorClassName());
                             warningsFound++;
                         }
                     });
@@ -68,19 +69,29 @@
                             e.preventDefault();
                             e.stopImmediatePropagation();
                         }
-                        $form.addClass("error");
+                        $form.addClass(errorClassName());
                         if ($.isFunction(settings.options.submitError)) {
                             settings.options.submitError($form, e, $inputsWithValidators.jqBootstrapValidation("collectErrors", true));
                         }
                     } else {
                         // Woo! No errors! We can pass the submit event to submitSuccess
                         // (if it has been set up)
-                        $form.removeClass("error");
+                        $form.removeClass(errorClassName());
                         if ($.isFunction(settings.options.submitSuccess)) {
                             settings.options.submitSuccess($form, e);
                         }
                     }
                 });
+
+                var successClassName = function() {
+                      return settings.options.bootstrap3 ? "has-success" : "success";
+                };
+                var errorClassName = function() {
+                      return settings.options.bootstrap3 ? "has-error" : "error";
+                };
+                var warningClassName = function() {
+                      return settings.options.bootstrap3 ? "has-warning" : "warning";
+                };
 
                 return this.each(function () {
 
@@ -556,7 +567,7 @@
                             // Were there any errors?
                             if (errorsFound.length) {
                                 // Better flag it up as a warning.
-                                $controlGroup.removeClass("success error warning").addClass(formIsSubmitting ? "error" : "warning");
+                                $controlGroup.removeClass([successClassName(),errorClassName(),warningClassName()].join(' ')).addClass(formIsSubmitting ? errorClassName() : warningClassName());
 
                                 // How many errors did we find?
                                 if (settings.options.semanticallyStrict && errorsFound.length === 1) {
@@ -569,23 +580,23 @@
                                         ( settings.options.prependExistingHelpBlock ? $helpBlock.data("original-contents") : "" ));
                                 }
                             } else {
-                                $controlGroup.removeClass("warning error success");
+                                $controlGroup.removeClass([successClassName(),errorClassName(),warningClassName()].join(' '));
                                 if (value.length > 0) {
-                                    $controlGroup.addClass("success");
+                                    $controlGroup.addClass(successClassName());
                                 }
                                 $helpBlock.html($helpBlock.data("original-contents"));
                             }
 
                             if (e.type === "blur") {
                                 if( settings.options.removeSuccess ){
-                                    $controlGroup.removeClass("success");
+                                    $controlGroup.removeClass(successClassName());
                                 }
                             }
                         }
                     );
                     $this.bind("validationLostFocus.validation", function () {
                         if( settings.options.removeSuccess ){
-                            $controlGroup.removeClass("success");
+                            $controlGroup.removeClass(successClassName());
                         }
                     });
                 });
