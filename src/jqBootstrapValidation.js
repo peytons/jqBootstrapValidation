@@ -547,7 +547,7 @@
 
                             var formIsSubmitting = !!$controlGroup.data("jqbvIsSubmitting");
 
-                            $controlGroup.find("input,textarea,select").not('[type=submit]').each(function (i, el) {
+                            $controlGroup.find("input,textarea,select,button").not('[type=submit]').each(function (i, el) {
                                 var oldCount = errorsFound.length;
                                 $.each($(el).triggerHandler("validation.validation", params) || [], function (j, message) {
                                     errorsFound.push(message);
@@ -560,7 +560,7 @@
                                 }
                             });
 
-                            $form.find("input,select,textarea").not($this).not("[name=\"" + $this.attr("name") + "\"]").trigger("validationLostFocus.validation");
+                            $form.find("input,select,textarea,button").not($this).not("[name=\"" + $this.attr("name") + "\"]").trigger("validationLostFocus.validation");
 
                             errorsFound = $.unique(errorsFound.sort());
 
@@ -655,7 +655,7 @@
 
                 var errorMessages = [];
 
-                this.find('input,select,textarea').add(this).each(function (i, el) {
+                this.find('input,select,textarea,button').add(this).each(function (i, el) {
                     errorMessages = errorMessages.concat(
                         $(el).triggerHandler("getValidators.validation") ? $(el).triggerHandler("validation.validation", {submitting: true}) : []
                     );
