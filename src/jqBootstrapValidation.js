@@ -53,7 +53,7 @@
                     var $form = $(this);
                     var warningsFound = 0;
                     // Get all inputs
-                    var $allInputs = $form.find("input,textarea,select").not("[type=submit],[type=image]").filter(settings.options.filter);
+                    var $allInputs = $form.find("input,textarea,select,button").not("[type=submit],[type=image]").filter(settings.options.filter);
                     var $allControlGroups = $form.find(settings.options.controlGroupClassName);
 
                     // Only trigger validation on the ones that actually _have_ validation

@@ -1,4 +1,4 @@
-/*! jqBootstrapValidation - v1.3.7 - 2013-11-06
+/*! jqBootstrapValidation - v1.3.7 - 2013-11-11
 * http://reactiveraven.github.com/jqBootstrapValidation
 * Copyright (c) 2013 David Godfrey; Licensed MIT */
 (function ($) {
@@ -56,7 +56,7 @@
                     var $form = $(this);
                     var warningsFound = 0;
                     // Get all inputs
-                    var $allInputs = $form.find("input,textarea,select").not("[type=submit],[type=image]").filter(settings.options.filter);
+                    var $allInputs = $form.find("input,textarea,select,button").not("[type=submit],[type=image]").filter(settings.options.filter);
                     var $allControlGroups = $form.find(settings.options.controlGroupClassName);
 
                     // Only trigger validation on the ones that actually _have_ validation
