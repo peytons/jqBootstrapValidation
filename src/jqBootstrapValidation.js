@@ -627,7 +627,7 @@
                         if ($.inArray($helpBlock[0], createdElements) > -1) {
                             $helpBlock.remove();
                         }
-                        for (p in $this.data()) {
+                        for (var p in $this.data()) {
                             if (/\bvalidation\w+Message\b/.test(p)) { // test data properties for pattern "validation*Message"
                                 $this.removeData(p);
                             }

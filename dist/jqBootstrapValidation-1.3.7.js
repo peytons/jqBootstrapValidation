@@ -1,6 +1,6 @@
-/*! jqBootstrapValidation - v1.3.7 - 2013-11-11
+/*! jqBootstrapValidation - v1.3.7 - 2015-03-10
 * http://reactiveraven.github.com/jqBootstrapValidation
-* Copyright (c) 2013 David Godfrey; Licensed MIT */
+* Copyright (c) 2015 David Godfrey; Licensed MIT */
 (function ($) {
 
     var createdElements = [];
@@ -630,7 +630,11 @@
                         if ($.inArray($helpBlock[0], createdElements) > -1) {
                             $helpBlock.remove();
                         }
-
+                        for (var p in $this.data()) {
+                            if (/\bvalidation\w+Message\b/.test(p)) { // test data properties for pattern "validation*Message"
+                                $this.removeData(p);
+                            }
+                        }
                     }
                 );
 
